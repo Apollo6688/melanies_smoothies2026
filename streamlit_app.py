@@ -3,7 +3,6 @@
 import streamlit as st
 import requests
 from snowflake.snowpark.functions import col
-import urllib.parse
 
 # Write directly to the app
 st.title( ":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
@@ -22,7 +21,7 @@ my_dataframe = session.table("smoothies.public.fruit_options"). select(col('frui
 
 ingredients_list = st.multiselect (
     'Choose up to 5 ingredients:'
-    , my_dataframe
+    ,my_dataframe
     ,max_selections=5
 )
 
@@ -32,8 +31,7 @@ if ingredients_list:
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
         st.subheader(fruit_chosen + ' Nutrition Information')
-        encoded_fruit = urllib.parse.quote(fruit_chosen)
-        smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{encoded_fruit}")
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/+fruit_chosen")
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     my_insert_stmt = "INSERT INTO smoothies.public.orders(ingredients, name_on_order) VALUES (?, ?)"
