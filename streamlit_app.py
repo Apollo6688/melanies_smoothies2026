@@ -34,8 +34,8 @@ if ingredients_list:
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)  
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
-        my_insert_stmt = "INSERT INTO smoothies.public.orders(ingredients, name_on_order) VALUES (?, ?)"
-        session.sql(my_insert_stmt, [ingredients_string, name_on_order]).collect()  
+    my_insert_stmt = "INSERT INTO smoothies.public.orders(ingredients, name_on_order) VALUES (?, ?)"
+    session.sql(my_insert_stmt, [ingredients_string, name_on_order]).collect()  
   
 
     #st.write(my_insert_stmt)
