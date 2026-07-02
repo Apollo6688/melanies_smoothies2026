@@ -2,12 +2,6 @@
 # Import python packages
 import streamlit as st
 from snowflake.snowpark.functions import col
-try:
-    smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{fruit.lower()}")
-    smoothiefroot_response.raise_for_status()
-    st.json(smoothiefroot_response.json())
-except requests.exceptions.RequestException as e:
-    st.error(f"Could not fetch nutrition info for {fruit}: {e}")
   
 # Write directly to the app
 st.title( ":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
